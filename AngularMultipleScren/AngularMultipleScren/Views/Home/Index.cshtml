@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/dirPagination.js"></script>
+<script src="~/Scripts/AngularCode.js"></script>
+<div ng-app="myApp">
+    <div ng-controller="myCtrl" ng-init="GetAllData()" class="divList">
+        <label>Search</label>
+        <input type="text" ng-model="search" class="form-control" placeholder="Search">
+        <p class="divHead">List of Employee</p>
+        <table cellpadding="12" class="table table-bordered table-hover">
+            <tr>
+                <td ng-click="sort('ID')">
+                    <b>ID<span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></b>
+                </td>
+                <td>
+                    <b>Name</b>
+                </td>
+                <td>
+                    <b>City</b>
+                </td>
+                <td>
+                    <b>Age</b>
+                </td>
+                <td>
+                    <b>Actions</b>
+                </td>
+            </tr>
+            <tr dir-paginate="Emp in employees|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+                <td>
+                    {{Emp.Emp_Id}}
+                </td>
+                <td>
+                    {{Emp.Emp_Name}}
+                </td>
+                <td>
+                    {{Emp.Emp_City}}
+                </td>
+                <td>
+                    {{Emp.Emp_Age}}
+                </td>
+                <td>
+                    <input type="button" class="btn btn-warning" value="Update" ng-click="UpdateEmp(Emp)" />
+                    <input type="button" class="btn btn-danger" value="Delete" ng-click="DeleteEmp(Emp)" />
+                </td>
+            </tr>
+        </table>
+        <dir-pagination-controls max-size="5"
+                                 direction-links="true"
+                                 boundary-links="true">
+        </dir-pagination-controls>
+    </div>
+</div>
